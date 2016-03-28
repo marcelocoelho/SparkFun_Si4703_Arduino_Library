@@ -19,9 +19,16 @@ void Si4703_Breakout::setChannel(int channel)
   //Freq(MHz) = 0.200(in USA) * Channel + 87.5MHz
   //97.3 = 0.2 * Chan + 87.5
   //9.8 / 0.2 = 49
-  int newChannel = channel * 10; //973 * 10 = 9730
-  newChannel -= 8750; //9730 - 8750 = 980
-  newChannel /= 10; //980 / 10 = 98
+  //int newChannel = channel * 10; //973 * 10 = 9730
+  //newChannel -= 8750; //9730 - 8750 = 980
+  //newChannel /= 10; //980 / 10 = 98
+
+
+  // JAPANESE BAND HERE
+  int newChannel = channel * 10; 
+  newChannel -= 7600; 
+  newChannel /= 10; 
+
 
   //These steps come from AN230 page 20 rev 0.5
   readRegisters();
@@ -140,8 +147,14 @@ void Si4703_Breakout::si4703_init()
   //  si4703_registers[POWERCFG] |= (1<<SMUTE) | (1<<DMUTE); //Disable Mute, disable softmute
   si4703_registers[SYSCONFIG1] |= (1<<RDS); //Enable RDS
 
+
   si4703_registers[SYSCONFIG1] |= (1<<DE); //50kHz Europe setup
-  si4703_registers[SYSCONFIG2] |= (1<<SPACE0); //100kHz channel spacing for Europe
+  si4703_registers[SYSCONFIG2] |= (1<<SPACE0); //100kHz channel spacing for Europe and Japan
+
+
+  si4703_registers[SYSCONFIG2] |= (1<<BAND0); // Operate on JAPAN wideband
+
+
 
   si4703_registers[SYSCONFIG2] &= 0xFFF0; //Clear volume bits
   si4703_registers[SYSCONFIG2] |= 0x0001; //Set volume to lowest
@@ -238,6 +251,10 @@ int Si4703_Breakout::getChannel() {
   int channel = si4703_registers[READCHAN] & 0x03FF; //Mask out everything but the lower 10 bits
   //Freq(MHz) = 0.100(in Europe) * Channel + 87.5MHz
   //X = 0.1 * Chan + 87.5
-  channel += 875; //98 + 875 = 973
+  //channel += 875; //98 + 875 = 973
+
+  // JAPANESE BAND 
+  channel += 760;
+
   return(channel);
 }

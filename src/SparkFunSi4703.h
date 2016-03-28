@@ -1,3 +1,11 @@
+/*
+
+Very useful programming guide here: http://www.silabs.com/Support%20Documents/TechnicalDocs/AN230.pdf
+
+
+
+
+*/
 /* 
 Library for Sparkfun Si4703 breakout board.
 Simon Monk. 2011-09-09
@@ -108,6 +116,10 @@ class Si4703_Breakout
 	//Register 0x05 - SYSCONFIG2
 	static const uint16_t  SPACE1 = 5;
 	static const uint16_t  SPACE0 = 4;
+
+	//Register 0x05 - SYSCONFIG2  - ADDED FOR JAPAN BAND
+	static const uint16_t  BAND1 = 7;
+	static const uint16_t  BAND0 = 6;
 
 	//Register 0x0A - STATUSRSSI
 	static const uint16_t  RDSR = 15;
