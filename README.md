@@ -1,5 +1,9 @@
+
 SparkFun Si4703 Arduino Library
 ========================================
+
+** MODIFIED TO ADD JAPANESE BAND **
+
 
 ![SparkFun Si4703](https://cdn.sparkfun.com//assets/parts/6/2/3/5/11083-02.jpg)
 
